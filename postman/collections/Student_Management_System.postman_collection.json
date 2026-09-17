@@ -1,0 +1,267 @@
+{
+  "info": {
+    "_postman_id": "student-management-system-crud-v2",
+    "name": "Student Management System API",
+    "description": "CRUD API collection for Student Management System",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://127.0.0.1:8000/api"
+    },
+    {
+      "key": "studentId",
+      "value": ""
+    }
+  ],
+  "item": [
+    {
+      "name": "1. Create Student",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code is 201\", function () {",
+              "    pm.response.to.have.status(201);",
+              "});",
+              "",
+              "let response = pm.response.json();",
+              "pm.collectionVariables.set(\"studentId\", response.id);",
+              "",
+              "console.log(\"Created Student ID:\", response.id);"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"roll_number\": \"23CSE{{$randomInt}}\",\n  \"name\": \"Postman Test Student\",\n  \"email\": \"postman{{$randomInt}}@example.com\",\n  \"phone\": \"9876543999\",\n  \"department\": \"Computer Science and Engineering\",\n  \"year\": 2,\n  \"gender\": \"Female\",\n  \"date_of_birth\": \"2008-01-15\"\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/students/",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "students",
+            ""
+          ]
+        }
+      }
+    },
+    {
+      "name": "2. Read All Students",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code is 200\", function () {",
+              "    pm.response.to.have.status(200);",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "{{baseUrl}}/students/",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "students",
+            ""
+          ]
+        }
+      }
+    },
+    {
+      "name": "3. Read One Student",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code is 200\", function () {",
+              "    pm.response.to.have.status(200);",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "{{baseUrl}}/students/{{studentId}}/",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "students",
+            "{{studentId}}",
+            ""
+          ]
+        }
+      }
+    },
+    {
+      "name": "4. Update Student",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code is 200\", function () {",
+              "    pm.response.to.have.status(200);",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"roll_number\": \"23CSE001\",\n  \"name\": \"Updated Postman Student\",\n  \"email\": \"updatedpostman@example.com\",\n  \"phone\": \"9876543999\",\n  \"department\": \"Computer Science and Engineering\",\n  \"year\": 2,\n  \"gender\": \"Female\",\n  \"date_of_birth\": \"2008-01-15\"\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/students/{{studentId}}/",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "students",
+            "{{studentId}}",
+            ""
+          ]
+        }
+      }
+    },
+    {
+      "name": "5. Delete Student",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code is 204\", function () {",
+              "    pm.response.to.have.status(204);",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "DELETE",
+        "url": {
+          "raw": "{{baseUrl}}/students/{{studentId}}/",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "students",
+            "{{studentId}}",
+            ""
+          ]
+        }
+      }
+    },
+    {
+      "name": "6. Search Students",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code is 200\", function () {",
+              "    pm.response.to.have.status(200);",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "{{baseUrl}}/students/?search=Parkavi",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "students",
+            ""
+          ],
+          "query": [
+            {
+              "key": "search",
+              "value": "Parkavi"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "7. Validation - Empty Name",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code is 400\", function () {",
+              "    pm.response.to.have.status(400);",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"roll_number\": \"23CSE999\",\n  \"name\": \"\",\n  \"email\": \"invalid@example.com\",\n  \"phone\": \"9876543999\",\n  \"department\": \"Computer Science and Engineering\",\n  \"year\": 2,\n  \"gender\": \"Female\",\n  \"date_of_birth\": \"2008-01-15\"\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/students/",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "students",
+            ""
+          ]
+        }
+      }
+    }
+  ]
+}
